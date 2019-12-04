@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,12 +22,10 @@ import butterknife.OnClick;
 public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHolder> {
 
     private List<Contact> contacts;
-    private Context context;
     private ItemClickListener itemClickListener;
 
-    public ContactsAdapter(Context context, ItemClickListener itemClickListener) {
+    public ContactsAdapter(ItemClickListener itemClickListener) {
         contacts = new ArrayList<>();
-        this.context = context;
         this.itemClickListener = itemClickListener;
     }
 
@@ -56,7 +53,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return (contacts != null ? contacts.size() : 0);
+        return contacts.size();
     }
 
 
