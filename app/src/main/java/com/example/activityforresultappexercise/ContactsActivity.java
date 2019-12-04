@@ -35,7 +35,7 @@ public class ContactsActivity
 
     private void setupUi() {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        ContactsAdapter adapter = new ContactsAdapter(this, this);
+        ContactsAdapter adapter = new ContactsAdapter(this);
         adapter.addAll(getContacts());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -68,10 +68,11 @@ public class ContactsActivity
         contacts.add(new Contact("Jane Doe", "jane@email.com"));
         return contacts;
     }
+
     @Override
     public void onItemClickListener(String email) {
         Intent intent = getIntent();
-        intent.putExtra("key", email);
+        intent.putExtra(MainActivity.KEY_EMAIL, email);
         setResult(RESULT_OK, intent);
         finish();
     }
