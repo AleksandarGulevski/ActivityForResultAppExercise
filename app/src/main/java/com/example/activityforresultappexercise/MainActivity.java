@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,7 +14,8 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final int REQUEST_CODE = 1;
+    public static final int REQUEST_CONTACT_CODE = 1;
+    public static final String KEY_EMAIL = "key_email";
     @BindView(R.id.contact)
     TextView contact;
 
@@ -30,26 +30,19 @@ public class MainActivity extends AppCompatActivity {
     public void onClick() {
         Intent intent = new Intent(this,
                 ContactsActivity.class);
-        startActivityForResult(intent, REQUEST_CODE);
+        startActivityForResult(intent, REQUEST_CONTACT_CODE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        try {
-            super.onActivityResult(requestCode, resultCode, data);
-
-            if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-
-                String email = data.getStringExtra("key");
-                if (!TextUtils.isEmpty(email)) {
-                    contact.setText(email);
-                } else {
-                    contact.setText("");
-                }
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CONTACT_CODE && resultCode == RESULT_OK) {
+            String email = data.getStringExtra(KEY_EMAIL);
+            if (!TextUtils.isEmpty(email)) {
+                contact.setText(email);
+            } else {
+                contact.setText("");
             }
-        } catch (Exception ex) {
-            Toast.makeText(this, ex.toString(),
-                    Toast.LENGTH_SHORT).show();
         }
     }
 }
